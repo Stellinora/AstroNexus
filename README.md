@@ -1,6 +1,12 @@
-# 助手项目
+# AstroNexus · 助手项目
 
-助手项目文档。以下文档私有于本项目；共享文档已复制为本项目副本，修改时需单独同步。跨项目参考见文末。
+> 从 Vesperine 拆出的助手项目。
+
+AstroNexus 是 Vesperine 的**助手项目**：保留记忆与经验库，删除拟人化，Docker 控制为多端输入 / 指定端输出。
+
+- 来源仓库：https://github.com/Stellinora/Vesperine
+- 兄弟项目：生命项目（Vesperine 的 `docs/life/`）
+- 本仓库文档为助手项目私有副本；共享文档修改时需与 Vesperine 同步。
 
 ## 项目文档
 
@@ -17,4 +23,4 @@
 
 ## 跨项目
 
-- [生命项目](../life/README.md)
+- [Vesperine 生命项目](https://github.com/Stellinora/Vesperine/blob/main/docs/life/README.md)
