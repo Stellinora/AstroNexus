@@ -1,5 +1,7 @@
 # 05 · Episode 与经验
 
+> **历史文档**：与 [14-云端记忆与多Agent编排](14-云端记忆与多Agent编排.md) 冲突时，以 14 为准。
+
 > Episode 是「事件」的一等公民。运维故障是 Episode，共同经历也是 Episode。
 
 ## 一、为什么需要 Episode
