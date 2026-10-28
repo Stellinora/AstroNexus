@@ -22,7 +22,8 @@ DSH 的官方应用面是 `web / headless / sdk / sdk-minimal / acp`。AstroNexu
 1. **DSH 是外部运行时依赖，不 fork。**
 2. **不 vendor 源码**（不把上游仓库拷进 `core`）。
 3. 需要对上游做小改动时，走 **`pnpm patch`**，patch 文件进仓库。
-4. **`@deepseek-ai/*` 的 import 只允许出现在 `core/services/dsh`**，其余层保持运行时无关。
+4. **`@deepseek-ai/*` 的 import 只允许出现在 `core/services/dsh/bundle/src/{memory,reflect,orchestrate}` 插件入口**；
+   `domain/`、`packages/`、`plugins/`、`mcp/` 保持运行时无关。
 
 反向决策（什么时候才 fork）见第六节。
 
@@ -30,9 +31,9 @@ DSH 的官方应用面是 `web / headless / sdk / sdk-minimal / acp`。AstroNexu
 
 | 目录 | 可否引用 `@deepseek-ai/*` | 说明 |
 |---|---|---|
-| `services/dsh` | 允许 | 唯一的 DSH 组装层：profile、bundle、薄插件、镜像 |
-| `services/memory` | **禁止** | 记忆核心通过 HTTP / MCP 被 DSH 调用 |
-| `services/worker` | **禁止** | 反思流水线独立进程、独立队列 |
+| `services/dsh/bundle/src/{memory,reflect,orchestrate}` | 允许 | 插件入口：只做 `apply(ctx)` 注册与适配 |
+| `services/dsh/bundle/src/domain` | **禁止** | 存储、检索、反思算法的纯 TS 内核 |
+| `services/dsh`（profile / Dockerfile / bundle manifest） | 允许 | 组装与打包，不含业务逻辑 |
 | `packages/protocol` | **禁止** | 契约层，不感知任何运行时 |
 | `packages/schema` | **禁止** | 框架无关会话 schema |
 | `plugins/` | **禁止** | Agent 侧薄适配器，不给本地 Agent 下发 DSH 依赖 |
@@ -81,9 +82,9 @@ fork 的硬性约束：
 
 [13 §2.3](13-双项目拆分.md) 要求「不让插件承担反思、总结、归一化、同步」。本策略把它落到依赖层面：
 
-- **部署核心**是 DSH：负责编排与 Headless 运行；
-- **契约核心**是 `packages/protocol` + 记忆服务：DSH 版本变化不得改变对外 API；
-- 因此 DSH 的预览版波动被限制在 `services/dsh` 一个目录内。
+- **工程主体**是 DSH 进程：memory / reflect / orchestrate 三个插件同进程运行，共享 `ctx` 与一个 SQLite 连接。
+- **内核**是 `services/dsh/bundle/src/domain` 与 `packages/protocol`、`packages/schema`：不依赖 DSH，可单独测试，也可换运行时复用。
+- 插件入口只做注册，因此 DSH 预览版波动被限制在三个入口文件，不传导到记忆算法与对外 API。
 
 ## 八、待办
 
