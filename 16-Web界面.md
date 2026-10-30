@@ -44,6 +44,7 @@
 
 1. **Phase 0**：web profile、镜像、compose、Caddy 示例、隐私开关。
 2. **Phase 1**：视觉主题（覆盖 `--dsw-*` token、logo、文案），先做客户端插件构建 spike，失败则用反代注入 CSS 兜底。
+   已落地：`services/dsh/client-theme` 手写 client bundle（无需构建链），覆盖品牌蓝 `#4d6bfe` 与明暗底色；后续按截图调色。
 3. **Phase 2**：记忆检索面板、`memory_*` 工具卡片（`tool.call.toolview`）。
 4. **出界**：APK、PC 壳、gateway、多用户、iOS。
 
