@@ -55,3 +55,6 @@ docker compose -f docker/compose.yml config
 ```
 
 本机 `dsh --profile astronexus-web --no-open --port 3080` 打开返回 200。
+
+已验证（WSL + Docker Desktop）：`docker compose build` 成功，容器 `3080` 返回 200，
+`session-log-deepseek` 为 disabled。

@@ -46,7 +46,7 @@ DSH 的官方应用面是 `web / headless / sdk / sdk-minimal / acp`。AstroNexu
 - 依赖一律 **exact pin**，提交 lockfile（`pnpm-lock.yaml`）。
 - DSH 版本双重锁定：`services/dsh/Dockerfile` 的 `ARG DSH_VERSION` 与
   `services/dsh/bundle/package.json` 的 `engines.dsh` 必须是同一个精确版本。
-- 容器基础镜像与 DSH 版本都要可追溯；镜像按 digest 固定（首次构建后补齐）。
+- 容器基础镜像按 digest 固定（已固定 `node:24-bookworm-slim@sha256:c86ecead…`，linux/amd64）。
 - 升级 checklist：
   1. 读上游 release notes，标记破坏性变更；
   2. 在分支上升 DSH 版本，保留旧版本对比；
